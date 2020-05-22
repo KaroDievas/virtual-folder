@@ -12,13 +12,18 @@ namespace KD\VirtualFolder\File;
 
 
 use KD\VirtualFolder\Exception\UploadFileException;
-use KD\VirtualFolder\Folder\FolderManipulator;
 use KD\VirtualFolder\PathTrait;
 
 class FileUpload implements FileUploadInterface
 {
     use PathTrait;
 
+    /**
+     * @param $file
+     * @param $pathToPlace
+     * @return bool
+     * @throws UploadFileException
+     */
     public function uploadFile($file, $pathToPlace)
     {
         if (!is_file($file)) {
@@ -33,6 +38,11 @@ class FileUpload implements FileUploadInterface
         return copy($file, $folder . DIRECTORY_SEPARATOR . $fileName);
     }
 
+    /**
+     * @param $fileWithPath
+     * @return bool
+     * @throws UploadFileException
+     */
     public function removeFile($fileWithPath)
     {
         $realPath = self::getPath($fileWithPath);

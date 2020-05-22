@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="Commission calculator tests">
+        <testsuite name="Virtual folder tests">
             <directory suffix="Test.php" phpVersion="7.1.0" phpVersionOperator=">=">./tests</directory>
         </testsuite>
     </testsuites>

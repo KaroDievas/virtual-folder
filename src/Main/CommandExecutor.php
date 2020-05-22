@@ -26,6 +26,7 @@ class CommandExecutor
     CONST FOLDER_CREATE = 'folderCreate';
     CONST FOLDER_REMOVE = 'folderRemove';
     CONST LIST_TREE = 'tree';
+    CONST LIST_FILES = 'listFiles';
     CONST UPLOAD_FILE = 'uploadFile';
     CONST REMOVE_FILE = 'removeFile';
     CONST BACKUP = 'backup';
@@ -43,6 +44,10 @@ class CommandExecutor
     /**
      * @param $command
      * @param bool $argument - in this case it can be folder name, file name
+     * @param bool $argument2
+     * @return array|string
+     * @throws CommandNotFoundException
+     * @throws \ReflectionException
      */
     public function execute($command, $argument = false, $argument2 = false)
     {
@@ -58,6 +63,8 @@ class CommandExecutor
             case self::LIST_TREE;
                 return $this->folderManipulator->getFoldersTree($argument);
                 break;
+            case self::LIST_FILES:
+                break;
             case self::UPLOAD_FILE:
                 $this->fileUpload->uploadFile($argument, $argument2);
                 break;
@@ -65,6 +72,7 @@ class CommandExecutor
                 $this->fileUpload->removeFile($argument);
                 break;
             case self::BACKUP:
+                $this->backupProvider->backup();
                 break;
             case self::HELP:
                 return self::getConstants();

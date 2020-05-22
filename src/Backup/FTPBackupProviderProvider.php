@@ -36,7 +36,7 @@ class FTPBackupProviderProvider implements BackupProviderInterface
         $this->password = $password;
     }
 
-    public function connect()
+    private function connect()
     {
         $this->connection = ftp_connect($this->host);
         $login = ftp_login($this->connection, $this->user, $this->password);
@@ -45,12 +45,14 @@ class FTPBackupProviderProvider implements BackupProviderInterface
         }
     }
 
-    public function backupData()
+    public function backup()
     {
+        $this->connect();
 
+        $this->close();
     }
 
-    public function close()
+    private function close()
     {
         ftp_close($this->connection);
     }

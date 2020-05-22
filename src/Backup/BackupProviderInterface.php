@@ -12,4 +12,5 @@ namespace KD\VirtualFolder\Backup;
 interface BackupProviderInterface
 {
     public function init(string $host, string $user, string $password);
+    public function backup();
 }
