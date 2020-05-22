@@ -12,5 +12,21 @@
             "name": "KaroDievas",
             "email": "admin@l2topai.eu"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "KD\\VirtualFolder\\": "src/"
+        },
+        "classmap": [
+            "src/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "KD\\VirtualFolder\\tests\\": "tests"
+        },
+        "classmap": [
+            "tests/"
+        ]
+    }
 }
