@@ -28,9 +28,11 @@ $folderManipulator = new FolderManipulator();
 
 $commandExecutor = new CommandExecutor(new FTPBackupProviderProvider($folderManipulator), $folderManipulator, new FileUpload());
 try {
+    echo "\n";
     print_r($commandExecutor->execute($command, $argument));
+    echo "\n \n";
 }
 catch (Exception $exception){
-    echo sprintf("\n %s \n", $exception->getMessage());
+    echo sprintf("\n %s \n \n", $exception->getMessage());
 }
 

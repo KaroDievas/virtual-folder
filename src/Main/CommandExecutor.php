@@ -6,6 +6,8 @@
  * Time: 14:27
  */
 
+declare(strict_types=1);
+
 namespace KD\VirtualFolder\Main;
 
 
@@ -44,12 +46,17 @@ class CommandExecutor
      */
     public function execute($command, $argument = false)
     {
+        //$result =
+
         switch ($command) {
             case self::FOLDER_CREATE:
+                $this->folderManipulator->createFolder($argument);
                 break;
             case self::FOLDER_REMOVE:
+                $this->folderManipulator->removeFolder($argument);
                 break;
             case self::LIST_TREE;
+                return $this->folderManipulator->getFoldersTree($argument);
                 break;
             case self::UPLOAD_FILE:
                 break;
@@ -64,9 +71,14 @@ class CommandExecutor
         }
     }
 
-    public static function getConstants() {
+    /**
+     * @return array
+     * @throws \ReflectionException
+     */
+    public static function getConstants(): string
+    {
         $oClass = new \ReflectionClass(__CLASS__);
-        return $oClass->getConstants();
+        return implode("\n", array_values($oClass->getConstants()));
     }
 
     private function getCommandList()

@@ -6,6 +6,8 @@
  * Time: 13:46
  */
 
+declare(strict_types=1);
+
 namespace KD\VirtualFolder\File;
 
 

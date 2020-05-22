@@ -45,6 +45,11 @@ class FTPBackupProviderProvider implements BackupProviderInterface
         }
     }
 
+    public function backupData()
+    {
+
+    }
+
     public function close()
     {
         ftp_close($this->connection);
