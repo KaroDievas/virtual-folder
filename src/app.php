@@ -27,4 +27,10 @@ if (isset($argv[2])) {
 $folderManipulator = new FolderManipulator();
 
 $commandExecutor = new CommandExecutor(new FTPBackupProviderProvider($folderManipulator), $folderManipulator, new FileUpload());
-$commandExecutor->execute($command, $argument);
+try {
+    print_r($commandExecutor->execute($command, $argument));
+}
+catch (Exception $exception){
+    echo sprintf("\n %s \n", $exception->getMessage());
+}
+
