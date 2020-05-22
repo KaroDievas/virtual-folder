@@ -11,5 +11,6 @@ namespace KD\VirtualFolder\File;
 
 interface FileUploadInterface
 {
-
+    public function uploadFile($file, $pathToPlace);
+    public function removeFile($fileWithPath);
 }

@@ -44,7 +44,7 @@ class CommandExecutor
      * @param $command
      * @param bool $argument - in this case it can be folder name, file name
      */
-    public function execute($command, $argument = false)
+    public function execute($command, $argument = false, $argument2 = false)
     {
         //$result =
 
@@ -59,8 +59,10 @@ class CommandExecutor
                 return $this->folderManipulator->getFoldersTree($argument);
                 break;
             case self::UPLOAD_FILE:
+                $this->fileUpload->uploadFile($argument, $argument2);
                 break;
             case self::REMOVE_FILE:
+                $this->fileUpload->removeFile($argument);
                 break;
             case self::BACKUP:
                 break;
@@ -79,10 +81,5 @@ class CommandExecutor
     {
         $oClass = new \ReflectionClass(__CLASS__);
         return implode("\n", array_values($oClass->getConstants()));
-    }
-
-    private function getCommandList()
-    {
-        return;
     }
 }

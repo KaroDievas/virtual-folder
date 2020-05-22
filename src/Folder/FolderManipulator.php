@@ -12,10 +12,11 @@ namespace KD\VirtualFolder\Folder;
 
 
 use KD\VirtualFolder\Exception\FolderManipulatorException;
+use KD\VirtualFolder\PathTrait;
 
 class FolderManipulator implements FolderManipulationInterface
 {
-    CONST ROOT_DIR = '/home/virtual-folder/data';
+    use PathTrait;
 
     /**
      * @param $path
@@ -28,7 +29,7 @@ class FolderManipulator implements FolderManipulationInterface
             throw new FolderManipulatorException('Missing folder which you want to create');
         }
 
-        $folderToCreate = $this->getPath($path);
+        $folderToCreate = self::getPath($path);
 
         if (is_dir($folderToCreate)) {
             throw new FolderManipulatorException('Folder already exists');
@@ -48,7 +49,7 @@ class FolderManipulator implements FolderManipulationInterface
             throw new FolderManipulatorException('Missing folder which you want to remove');
         }
 
-        $folderToRemove = $this->getPath($path);
+        $folderToRemove = self::getPath($path);
         if (!is_dir($folderToRemove)) {
             throw new FolderManipulatorException('Folder already exists');
         }
@@ -70,8 +71,8 @@ class FolderManipulator implements FolderManipulationInterface
     public function getFoldersTree($path = false): string
     {
         $files = array();
-        foreach($this->getDirContents($this->getPath($path)) as $value) {
-            $files[] = str_replace(self::ROOT_DIR.DIRECTORY_SEPARATOR, '', $value);
+        foreach($this->getDirContents(self::getPath($path)) as $value) {
+            $files[] = str_replace(self::getRootDirectory(), '', $value);
         }
 
         return implode("\n", array_values($files));
@@ -96,17 +97,6 @@ class FolderManipulator implements FolderManipulationInterface
                 yield $path;
             }
         }
-    }
-
-
-
-    /**
-     * @param $path
-     * @return string
-     */
-    private function getPath($path): string
-    {
-        return sprintf('%s%s%s', self::ROOT_DIR, DIRECTORY_SEPARATOR, $path);
     }
 
     /**

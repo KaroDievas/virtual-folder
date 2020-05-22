@@ -9,27 +9,23 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use \KD\VirtualFolder\Main\CommandExecutor;
-use \KD\VirtualFolder\Exception\CommandNotFoundException;
 use \KD\VirtualFolder\Folder\FolderManipulator;
 use \KD\VirtualFolder\File\FileUpload;
 use \KD\VirtualFolder\Backup\FTPBackupProviderProvider;
 
 if (!isset($argv[1])) {
-    throw new CommandNotFoundException();
+    echo "\n Please enter command. Or use help syntax: php src/app.php help \n \n";
+    return;
 }
 
-$argument = false;
 $command = $argv[1];
-if (isset($argv[2])) {
-    $argument = $argv[2];
-}
 
 $folderManipulator = new FolderManipulator();
 
 $commandExecutor = new CommandExecutor(new FTPBackupProviderProvider($folderManipulator), $folderManipulator, new FileUpload());
 try {
     echo "\n";
-    print_r($commandExecutor->execute($command, $argument));
+    print_r($commandExecutor->execute($command, $argv[2]?? false, $argv[3] ?? false));
     echo "\n \n";
 }
 catch (Exception $exception){
