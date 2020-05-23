@@ -12,6 +12,10 @@ namespace KD\VirtualFolder\Folder;
 interface FolderManipulationInterface
 {
     public function createFolder($path);
+
     public function removeFolder($path);
+
     public function getFoldersTree($path = false);
+
+    public function getFoldersTreeArray($path = false);
 }

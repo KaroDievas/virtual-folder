@@ -70,12 +70,21 @@ class FolderManipulator implements FolderManipulationInterface
      */
     public function getFoldersTree($path = false): string
     {
+        return implode("\n", $this->getFoldersTreeArray($path));
+    }
+
+    /**
+     * @param bool $path
+     * @return array
+     */
+    public function getFoldersTreeArray($path = false): array
+    {
         $files = array();
         foreach ($this->getDirContents(self::getPath($path)) as $value) {
             $files[] = str_replace(self::getRootDirectory(), '', $value);
         }
 
-        return implode("\n", array_values($files));
+        return array_values($files);
     }
 
     /**
