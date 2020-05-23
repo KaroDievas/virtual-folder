@@ -51,8 +51,6 @@ class CommandExecutor
      */
     public function execute($command, $argument = false, $argument2 = false)
     {
-        //$result =
-
         switch ($command) {
             case self::FOLDER_CREATE:
                 $this->folderManipulator->createFolder($argument);

@@ -24,7 +24,7 @@ class FileUpload implements FileUploadInterface
      * @return bool
      * @throws UploadFileException
      */
-    public function uploadFile($file, $pathToPlace)
+    public function uploadFile($file, $pathToPlace): bool
     {
         if (!is_file($file)) {
             throw new UploadFileException('Please provide correct file');
@@ -43,7 +43,7 @@ class FileUpload implements FileUploadInterface
      * @return bool
      * @throws UploadFileException
      */
-    public function removeFile($fileWithPath)
+    public function removeFile($fileWithPath): bool
     {
         $realPath = self::getPath($fileWithPath);
         if (!is_file($realPath)) {

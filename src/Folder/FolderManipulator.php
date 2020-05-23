@@ -71,7 +71,7 @@ class FolderManipulator implements FolderManipulationInterface
     public function getFoldersTree($path = false): string
     {
         $files = array();
-        foreach($this->getDirContents(self::getPath($path)) as $value) {
+        foreach ($this->getDirContents(self::getPath($path)) as $value) {
             $files[] = str_replace(self::getRootDirectory(), '', $value);
         }
 
@@ -82,14 +82,15 @@ class FolderManipulator implements FolderManipulationInterface
      * @param $dir
      * @return \Generator
      */
-    private function getDirContents($dir) {
+    private function getDirContents($dir)
+    {
         $files = scandir($dir);
-        foreach($files as $key => $value){
+        foreach ($files as $key => $value) {
             if ($value == "." || $value == "..") {
                 continue;
             }
-            $path = $dir.DIRECTORY_SEPARATOR.$value;
-            if(!is_dir($path)) {
+            $path = $dir . DIRECTORY_SEPARATOR . $value;
+            if (!is_dir($path)) {
                 yield $path;
 
             } else {
