@@ -20,7 +20,7 @@
 - listFiles [path] - list files in any folder
 - uploadFile [fileFromLocalDirectory] [pathToUpload]
 - removeFile [removeFilePath]
-- backup
+- backup (please configure it. File FTPBackupProvider.php)
 
 ### Uploading files
 - local storage = project root directory
