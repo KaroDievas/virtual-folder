@@ -62,6 +62,32 @@ class FolderManipulator implements FolderManipulationInterface
     }
 
     /**
+     * @param bool $path
+     * @return string
+     */
+    public function getFilesInPath($path = false): string
+    {
+        return implode("\n", $this->getFilesListInPathArray($path));
+    }
+
+    /**
+     * @param bool $path
+     * @return array
+     */
+    public function getFilesListInPathArray($path = false): array
+    {
+        $tree = $this->getFoldersTreeArray($path);
+        $filesList = [];
+        foreach ($tree as $data) {
+            if (is_file(self::getPath($data))) {
+                $filesList[] = $data;
+            }
+        }
+
+        return $filesList;
+    }
+
+    /**
      * Gets all tructure tree
      * It would be more easier to get this in bash 'find data/'
      *

@@ -62,6 +62,7 @@ class CommandExecutor
                 return $this->folderManipulator->getFoldersTree($argument);
                 break;
             case self::LIST_FILES:
+                return $this->folderManipulator->getFilesInPath($argument);
                 break;
             case self::UPLOAD_FILE:
                 $this->fileUpload->uploadFile($argument, $argument2);

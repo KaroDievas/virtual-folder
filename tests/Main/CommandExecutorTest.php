@@ -9,7 +9,7 @@
 namespace KD\VirtualFolder\tests\Main;
 
 
-use KD\VirtualFolder\Backup\FTPBackupProviderProvider;
+use KD\VirtualFolder\Backup\FTPBackupProvider;
 use KD\VirtualFolder\Exception\CommandNotFoundException;
 use KD\VirtualFolder\File\FileUpload;
 use KD\VirtualFolder\Folder\FolderManipulator;
@@ -31,7 +31,7 @@ class CommandExecutorTest extends TestCase
         $folderManipulatorMock->expects($this->any())->method('removeFolder')->willReturn(true);
         $folderManipulatorMock->expects($this->any())->method('getFoldersTree')->willReturn('onlyOneFolder');
 
-        $backupMock = $this->getMockBuilder(FTPBackupProviderProvider::class)->disableOriginalConstructor()->getMock();
+        $backupMock = $this->getMockBuilder(FTPBackupProvider::class)->disableOriginalConstructor()->getMock();
 
         $this->commandExecutor = new CommandExecutor($backupMock, $folderManipulatorMock, $fileUploadMock);
     }

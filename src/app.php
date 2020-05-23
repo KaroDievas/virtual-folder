@@ -11,7 +11,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use \KD\VirtualFolder\Main\CommandExecutor;
 use \KD\VirtualFolder\Folder\FolderManipulator;
 use \KD\VirtualFolder\File\FileUpload;
-use \KD\VirtualFolder\Backup\FTPBackupProviderProvider;
+use \KD\VirtualFolder\Backup\FTPBackupProvider;
 
 if (!isset($argv[1])) {
     echo "\n Please enter command. Or use help syntax: php src/app.php help \n \n";
@@ -22,7 +22,7 @@ $command = $argv[1];
 
 $folderManipulator = new FolderManipulator();
 
-$commandExecutor = new CommandExecutor(new FTPBackupProviderProvider($folderManipulator), $folderManipulator, new FileUpload());
+$commandExecutor = new CommandExecutor(new FTPBackupProvider($folderManipulator), $folderManipulator, new FileUpload());
 try {
     echo "\n";
     print_r($commandExecutor->execute($command, $argv[2]?? false, $argv[3] ?? false));

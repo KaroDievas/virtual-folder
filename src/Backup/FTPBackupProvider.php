@@ -15,7 +15,7 @@ use KD\VirtualFolder\Exception\FtpConnectionFailedException;
 use KD\VirtualFolder\Folder\FolderManipulationInterface;
 use KD\VirtualFolder\PathTrait;
 
-class FTPBackupProviderProvider implements BackupProviderInterface
+class FTPBackupProvider implements BackupProviderInterface
 {
     use PathTrait;
 
@@ -35,28 +35,6 @@ class FTPBackupProviderProvider implements BackupProviderInterface
         $this->folderManipulation = $folderManipulation;
     }
 
-    private function connect()
-    {
-        $this->connection = @ssh2_connect(self::HOST, self::PORT);
-        if (!$this->connection) {
-            throw new FtpConnectionFailedException(sprintf('FTP connection has failed! Attempted to connect to %s for user %s',
-                self::HOST, self::USER));
-        }
-    }
-
-    private function login()
-    {
-        if (!@ssh2_auth_password($this->connection, self::USER, self::PASSWORD)) {
-            throw new FtpConnectionFailedException(sprintf('Could not authenticate with username %s and password %s',
-                self::USER, self::PASSWORD));
-        }
-
-        $this->sftp = @ssh2_sftp($this->connection);
-        if (!$this->sftp) {
-            throw new FtpConnectionFailedException("Could not initialize SFTP subsystem.");
-        }
-    }
-
     /**
      * Backups all files to remote server
      *
@@ -64,6 +42,7 @@ class FTPBackupProviderProvider implements BackupProviderInterface
      */
     public function backup()
     {
+        $this->checkCredentials();
         $this->connect();
         $this->login();
 
@@ -93,5 +72,40 @@ class FTPBackupProviderProvider implements BackupProviderInterface
         }
 
         unset($this->connection);
+    }
+
+    private function checkCredentials()
+    {
+        if (empty(self::HOST) || empty(self::PASSWORD) || empty(self::USER)) {
+            throw new FtpConnectionFailedException('Please provide connection credentials. You need to set it directly in FTPBackupProvider.php');
+        }
+    }
+
+    /**
+     * @throws FtpConnectionFailedException
+     */
+    private function connect()
+    {
+        $this->connection = @ssh2_connect(self::HOST, self::PORT);
+        if (!$this->connection) {
+            throw new FtpConnectionFailedException(sprintf('FTP connection has failed! Attempted to connect to %s for user %s',
+                self::HOST, self::USER));
+        }
+    }
+
+    /**
+     * @throws FtpConnectionFailedException
+     */
+    private function login()
+    {
+        if (!@ssh2_auth_password($this->connection, self::USER, self::PASSWORD)) {
+            throw new FtpConnectionFailedException(sprintf('Could not authenticate with username %s and password %s',
+                self::USER, self::PASSWORD));
+        }
+
+        $this->sftp = @ssh2_sftp($this->connection);
+        if (!$this->sftp) {
+            throw new FtpConnectionFailedException("Could not initialize SFTP subsystem.");
+        }
     }
 }

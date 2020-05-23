@@ -18,4 +18,8 @@ interface FolderManipulationInterface
     public function getFoldersTree($path = false);
 
     public function getFoldersTreeArray($path = false);
+
+    public function getFilesInPath($path = false);
+
+    public function getFilesListInPathArray($path = false);
 }
