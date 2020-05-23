@@ -56,7 +56,9 @@ RUN touch /var/log/cron.log
 
 CMD cron && tail -f /var/log/cron.log
 
-WORKDIR /home/wwwroot/
+RUN cd /home && mkdir data
+
+WORKDIR /home/virtual-folder/
 ##</romaricp>##
 
 EXPOSE 9000

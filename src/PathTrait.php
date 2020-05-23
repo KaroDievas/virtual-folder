@@ -25,6 +25,6 @@ trait PathTrait
      */
     public function getRootDirectory(): string
     {
-        return '/home/virtual-folder/data/';
+        return '/home/data/';
     }
 }
