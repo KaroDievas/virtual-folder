@@ -24,7 +24,7 @@
 
 ### Uploading files
 - local storage = project root directory
-- In case you want to access any file from not inside docker, you need to have php directly written into your PC, and move data folder into projects root in order to file system could see.
+- In case you want to access any file from not inside docker, you need to have php directly written into your PC, and move data folder into projects root in order to file system could see. (let's discuss that)
 
 ### Notes
 Data persists only for that moments if you do not rebuild whole docker container. I have decided to move whole data inside to docker container in order to not have any any .gitignore in data folder visible from IDE. This allows me to not care is it really uploaded files or not.
